@@ -26,38 +26,43 @@ The primary goal is to understand how SSL/TLS certificates work, how to generate
 ## 🚀 How to Run
 
 ### 1. Install Dependencies
-Run the following command to install the required Node.js packages (if any are defined):
-```bash
-npm install
-2. Generate Certificates
-If the certificates are not present, generate them using OpenSSL:
-code
-Bash
-mkdir certs
-openssl req -nodes -new -x509 -keyout certs/server.key -out certs/server.cert -days 365
-Note: Ensure the Common Name (CN) is set to localhost.
-3. Run the Insecure Server (HTTP)
-code
-Bash
-node server.js
-Access at: http://localhost:3000
-Observation: Traffic is unencrypted.
-4. Run the Secure Server (HTTPS)
-code
-Bash
-node server_https.js
-Access at: https://localhost:3443
-Observation: Browser will show a "Self-Signed" warning. You must accept the risk to proceed. Traffic is encrypted.
-🧪 Testing
-Curl Verification
-To test the secure server from the terminal and bypass the self-signed certificate check:
-code
-Bash
-curl -k https://localhost:3443
-Browser Verification
-Navigate to https://localhost:3443.
-Accept the security risk (caused by the lack of a Public CA signature).
-Click the "Lock" icon to view certificate details (Subject: localhost).
-📝 Lab Outcomes
-This project successfully demonstrates the implementation of the TLS handshake and data encryption. While self-signed certificates are valid for encryption, they lack third-party trust, which is why browsers flag them as potential security risks.
+Run the following command to install the required Node.js packages:
 
+    npm install
+
+### 2. Generate Certificates
+If the certificates are not present, generate them using OpenSSL:
+
+    mkdir certs
+    openssl req -nodes -new -x509 -keyout certs/server.key -out certs/server.cert -days 365
+
+*Note: Ensure the Common Name (CN) is set to `localhost`.*
+
+### 3. Run the Insecure Server (HTTP)
+
+    node server.js
+
+- Access at: `http://localhost:3000`
+- Observation: Traffic is unencrypted.
+
+### 4. Run the Secure Server (HTTPS)
+
+    node server_https.js
+
+- Access at: `https://localhost:3443`
+- Observation: Browser will show a "Self-Signed" warning. You must accept the risk to proceed. Traffic is encrypted.
+
+## 🧪 Testing
+
+### Curl Verification
+To test the secure server from the terminal and bypass the self-signed certificate check:
+
+    curl -k https://localhost:3443
+
+### Browser Verification
+1. Navigate to `https://localhost:3443`.
+2. Accept the security risk (caused by the lack of a Public CA signature).
+3. Click the "Lock" icon to view certificate details (Subject: localhost).
+
+## 📝 Lab Outcomes
+This project successfully demonstrates the implementation of the TLS handshake and data encryption. While self-signed certificates are valid for encryption, they lack third-party trust, which is why browsers flag them as potential security risks.
